@@ -56,7 +56,7 @@
   --cui-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --cui-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
   --cui-body-font-family: var(--cui-font-sans-serif);
-  --cui-body-font-size: 1rem;
+  --cui-body-font-size: 0.9rem;
   --cui-body-font-weight: 400;
   --cui-body-line-height: 1.5;
   --cui-body-color: rgba(44, 56, 74, 0.95);
@@ -4927,6 +4927,11 @@ html:not([dir=rtl]) .card-link + .card-link {
 .card-img-bottom {
   width: 100%;
 }
+.card{
+  box-shadow: rgb(50 50 93 / 25%) 0px 2px 5px -1px, rgb(0 0 0 / 30%) 0px 1px 3px -1px;
+    border: 0;
+}
+
 
 .card-img,
 .card-img-top {
@@ -8067,7 +8072,7 @@ html:not([dir=rtl]) .header-nav {
 }
 
 .sidebar {
-  --cui-sidebar-width: 16rem;
+  --cui-sidebar-width: 14rem;
   --cui-sidebar-bg: #3c4b64;
   --cui-sidebar-padding-x: 0;
   --cui-sidebar-padding-y: 0;
@@ -8152,7 +8157,7 @@ html:not([dir=rtl]) .sidebar:not(.sidebar-end) {
   margin-right: 0;
 }
 .sidebar:not(.sidebar-end) ~ * {
-  --cui-sidebar-occupy-start: 16rem;
+  --cui-sidebar-occupy-start: 14rem;
 }
 .sidebar.sidebar-end {
   order: 99;
