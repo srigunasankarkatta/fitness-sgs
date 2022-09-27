@@ -2,7 +2,6 @@
     <div class="sidebar-brand d-none d-md-flex">
         <div class="sidebar-brand-full" width="118" height="46" alt="CoreUI Logo">
             <img src="{{ asset('assets/brand/logo-full.png') }}" height="50px" alt="">
-           
         </div>
         <div class="sidebar-brand-narrow" width="46" height="46" alt="CoreUI Logo">
             <img src="{{ asset('assets/brand/fitmi_logo.svg') }}" height="50px" alt="">

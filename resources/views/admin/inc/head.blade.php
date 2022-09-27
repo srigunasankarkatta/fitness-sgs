@@ -22,7 +22,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/favicon/favicon-16x16.png')}}">
     <link rel="manifest" href="assets/favicon/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="{{asset('uploads/site-logo/fitmi-logo.png')}}">
+    {{-- <meta name="msapplication-TileImage" content="{{asset('uploads/site-logo/fitmi-logo.png')}}"> --}}
     <meta name="theme-color" content="#ffffff">
     <!-- Vendors styles-->
     <link rel="stylesheet" href="{{asset('vendors/simplebar/css/simplebar.css')}}">
@@ -31,12 +31,13 @@
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
     <!-- We use those styles to show code examples, you should remove them in your application.-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.css">
-    <link href="css/examples.css" rel="stylesheet">
+    {{-- <link href="css/examples.css" rel="stylesheet"> --}}
     <link rel="canonical" href="https://coreui.io/docs/components/toasts/">
   <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
+  <link href="{{asset('vendors/@coreui/icons/css/free.min.css')}}" rel="stylesheet">
     
     <!-- Global site tag (gtag.js) - Google Analytics-->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
+    {{-- <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script> --}}
 
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -44,10 +45,10 @@
       function gtag() {
         dataLayer.push(arguments);
       }
-      gtag('js', new Date());
+      // gtag('js', new Date());
       // Shared ID
-      gtag('config', 'UA-118965717-3');
+      // gtag('config', 'UA-118965717-3');
       // Bootstrap ID
-      gtag('config', 'UA-118965717-5');
+      // gtag('config', 'UA-118965717-5');
     </script>
     <link href="{{asset('vendors/@coreui/chartjs/css/coreui-chartjs.css')}}" rel="stylesheet">

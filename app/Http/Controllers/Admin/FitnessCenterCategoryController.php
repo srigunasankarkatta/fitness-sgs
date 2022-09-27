@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\FintnessCenterCategoryFormRequest;
 use App\Models\FitnessCenterCategory;
+use File;
 
 class FitnessCenterCategoryController extends Controller
 {
@@ -44,16 +45,14 @@ class FitnessCenterCategoryController extends Controller
         $category->name = $validatedData['name'];
         $category->slug = $validatedData['slug'];
         $category->description = $validatedData['description'];
-
-        if($request->hasFile('image')){
-            $file = $request->file('image');
-            $ext = $file->getClientOriginalExtension();
-            $filename = time().'.'.$ext;
-
-            $file->move('uploads/fintness_center_category/', $filename);
-            $category->image = $validatedData['image'];
-        }
-
+        $category->image = $request->category_icon;
+        // if($request->hasFile('image')){
+        //     $file = $request->file('image');
+        //     $ext = $file->getClientOriginalExtension();
+        //     $filename = 'uploads/fintness_center_category/' . time().'.'.$ext;
+        //     $file->move('uploads/fintness_center_category/', $filename);
+        //     $category->image = $filename;
+        // }
         $category->meta_title = $validatedData['meta_title'];
         $category->meta_keyword = $validatedData['meta_keyword'];
         $category->meta_description = $validatedData['meta_description'];
@@ -103,12 +102,17 @@ class FitnessCenterCategoryController extends Controller
         $category->description = $validatedData['description'];
 
         if($request->hasFile('image')){
+            $file_path = app_path($category->image);
+            if(File::exists($file_path)){ 
+                return $file_path;
+                File::delete(public_path($category->image));
+            }
             $file = $request->file('image');
             $ext = $file->getClientOriginalExtension();
-            $filename = time().'.'.$ext;
+            $filename = 'uploads/fintness_center_category/'.time().'.'.$ext;
 
             $file->move('uploads/fintness_center_category/', $filename);
-            $category->image = $validatedData['image'];
+            $category->image = $filename;
         }
 
         $category->meta_title = $validatedData['meta_title'];
@@ -125,8 +129,16 @@ class FitnessCenterCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        //
+        $fitness_category = FitnessCenterCategory::findOrFail($id);
+        if(File::exists($fitness_category->image)){
+            File::delete($fitness_category->image);
+        }
+        $fitness_category->delete();
+
+        return redirect()->back()->with('message', 'category removed successfully');
     }
+
+    
 }

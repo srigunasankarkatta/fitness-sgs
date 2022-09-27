@@ -35,9 +35,9 @@ class FintnessCenterCategoryFormRequest extends FormRequest
             'description' => [ 
                 'required',
             ],
-            'image' => [ 
-                'nullable',
-                'mimes:jpg,jpeg,png'
+            'category_icon' => [ 
+                'required',
+                
             ],
             'meta_title' => [ 
                 'required',

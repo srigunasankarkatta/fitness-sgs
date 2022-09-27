@@ -69,7 +69,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label class="">Slug</label>
-                                            <input type="text" name="slug" class="form-control" id=""
+                                            <input type="text" name="slug" class="form-control slugify" id=""
                                                 value="{{ $expert->slug }}">
                                             @error('slug')
                                                 <small class="text-danger">{{ $message }}</small>

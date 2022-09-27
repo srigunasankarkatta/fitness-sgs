@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->mediumText('description');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->unsignedInteger('parent_id')->nullable()->default('0');
 
             $table->string('meta_title')->nullable();
@@ -28,6 +28,7 @@ return new class extends Migration
             $table->tinyInteger('navbar_status')->default('0');
             $table->tinyInteger('status')->default('0');
             $table->integer('created_by');
+            
             $table->timestamps();
         });
     }

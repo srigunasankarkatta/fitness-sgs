@@ -8,7 +8,7 @@ use App\Models\BlogCategory;
 use App\Http\Requests\BlogCategoryFormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-
+use File;
 
 class BlogCategoryController extends Controller
 {
@@ -40,10 +40,10 @@ class BlogCategoryController extends Controller
         if($request->hasFile('image')){
             $file = $request->file('image');
             $ext = $file->getClientOriginalExtension();
-            $filename = time().'.'.$ext;
+            $filename = 'uploads/blog_category/'.time().'.'.$ext;
 
             $file->move('uploads/blog_category/', $filename);
-            $category->image = 'uploads/blog_category/'. $validatedData['image'];
+            $category->image = $filename;
         }
 
         $category->meta_title = $validatedData['meta_title'];	
@@ -56,5 +56,62 @@ class BlogCategoryController extends Controller
 
         return redirect('admin/blog-category')->with('message', 'blog category added successfully');
 
+    }
+
+    public function update(Request $request,int $id)
+    {
+       
+        $request->validate([
+            'name'=> 'required',
+            'description'=> 'required',
+            'slug' => 'required|unique:blog_posts,slug,'.$id
+         ]);
+
+         $category = BlogCategory::find($id);
+         if($category){
+            $category->name = $request->name;	
+            $category->slug = Str::slug($request->slug);
+            $category->description = $request->description;	
+    
+            if($request->hasFile('image')){
+                $file_path = app_path($category->image);
+                if(File::exists($file_path)){ 
+                    File::delete(public_path($category->image));
+                }
+                $file = $request->file('image');
+                $ext = $file->getClientOriginalExtension();
+                $filename = 'uploads/blog_category/'.time().'.'.$ext;
+    
+                $file->move('uploads/blog_category/', $filename);
+                $category->image = $filename;
+            }
+    
+            $category->meta_title = $request->meta_title;	
+            $category->meta_keyword = $request->meta_keyword;	
+            $category->meta_description = $request->meta_description;
+            $category->navbar_status = $request->navbar_status == true ? '0' : '1';
+            $category->status = $request->status == true ? '0' : '1';
+            $category->created_by = Auth::user()->id;
+            $category->save();
+    
+            return redirect('admin/blog-category')->with('message', 'blog category updated successfully');
+         }else{
+            return redirect('admin/blog-post')->with('error', 'category not found');
+         }
+        
+         
+
+    }
+
+    public function destroy(int $id){
+        $category = BlogCategory::findOrFail($id);
+        if($category){
+            $file_path = app_path($category->image);
+            if(File::exists($file_path)){ 
+                File::delete(public_path($category->image));
+            }
+        }
+        $category->delete();
+        return redirect('admin/blog-category')->with('message', 'category removed successfully');
     }
 }

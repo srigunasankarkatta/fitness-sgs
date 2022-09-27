@@ -20,7 +20,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="">Slug</label>
-                                <input type="text" name="slug" class="form-control" id="" value="{{$category->slug}}">
+                                <input type="text" name="slug" class="form-control slugify" id="" value="{{$category->slug}}">
                                 @error('slug')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -39,8 +39,48 @@
 
                         <div class="form-group row mb-3">
                             <div class="col-md-6">
+                                <label class="">Category Icon</label>
+                                <input type="text" name="category_icon" class="form-control " id="" value="{{$category->image}}">
+                                @error('category_icon')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                           
+                            <div class="col-md-6">
+                              
+                                  <label for=""></label>
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="mySwitch" name="status" {{$category->stsus == 0 ? 'checked': ''}}>
+                                    <label class="form-check-label" for="mySwitch">Status</label>
+                                  </div>
+                             
+                                @error('status')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        {{-- <div class="form-group row mb-3">
+                            <div class="col-md-6">
                                 <label class="">Image</label>
-                                <input type="file" name="image" class="form-control" id="">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card mb-2">
+                                            <div class="card-body text-center">
+                                                @if ($category->image)
+                                                <img src="{{asset($category->image)}}" id="category_img" style="object-fit:contain;width: 100%;height: 100%;" alt="">
+                                                @else
+                                                <span class="text-center w-100">
+                                                    <i class="icon icon-8xl text-light cil-image"></i>
+                                                </span>
+                                                @endif
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="file" name="image" id="fcat_image" class="form-control d-none" id="">
+                                <label class="btn btn-success" for="fcat_image">Change</label>
+                                <label class="btn btn-danger" for="" data-src="{{asset($category->image)}}" id="clear-preview">Reset</label>
                                 @error('image')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -53,7 +93,7 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group row mb-3">
                             <div class="col-md-6">
@@ -91,3 +131,36 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            var table = $('#example').DataTable({
+                responsive: true
+            });
+
+            new $.fn.dataTable.FixedHeader(table);
+        });
+        $('#fcat_image').on('change', function(){
+            $('#category_img').attr('src', window.URL.createObjectURL(this.files[0]))
+        })
+        $('#clear-preview').on('click', function(){
+            $('#category_img').attr('src',$(this).attr('data-src'))
+        })
+    </script>
+    @push('scripts')
+    @if($message = Session::get('message'))
+      <script>
+      $(function(){
+          toastr.success("{{ $message }}");
+      })
+      </script>                 
+    @endif
+    @if($message = Session::get('error'))
+      <script>
+      $(function(){
+          toastr.error("{{ $message }}");
+      })
+      </script>                 
+    @endif
+    @endpush
+@endpush

@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('blog_posts', function (Blueprint $table) {
             $table->id();
-            $table->integer('category_id');
+
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->string('name');
             $table->string('slug');
             $table->longText('description');
-            $table->string('image');
+            $table->string('image')->nullable();
 
             $table->string('meta_title')->nullable();
             $table->text ('meta_keyword')->nullable();
@@ -28,6 +29,8 @@ return new class extends Migration
             $table->tinyInteger('navbar_status')->default('0');
             $table->tinyInteger('status')->default('0');
             $table->integer('created_by');
+
+            $table->foreign('category_id')->references('id')->on('blog_categories')->onDelete('cascade');
 
             $table->timestamps();
         });

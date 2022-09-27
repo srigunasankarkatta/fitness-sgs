@@ -59,7 +59,8 @@
   --cui-body-font-size: 0.9rem;
   --cui-body-font-weight: 400;
   --cui-body-line-height: 1.5;
-  --cui-body-color: rgba(44, 56, 74, 0.95);
+  /* --cui-body-color: rgba(44, 56, 74, 0.95); */
+  --cui-body-color:: #EEF0F8;
   --cui-body-bg: #fff;
   --cui-border-width: 1px;
   --cui-border-style: solid;
@@ -14013,6 +14014,8 @@ html:not([dir=rtl]) .wrapper {
     transition: none;
   }
 }
+
+
 
 /* stylelint-disable declaration-no-important, scss/selector-no-redundant-nesting-selector */
 .example:not(:first-child) {

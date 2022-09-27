@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="">Slug</label>
-                                    <input type="text" name="slug" class="form-control" id="" value="{{$category->slug}}">
+                                    <input type="text" name="slug" class="form-control slugify"  id="" value="{{$category->slug}}">
                                     @error('slug')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -44,6 +44,23 @@
                             <div class="form-group row mb-3">
                                 <div class="col-md-6">
                                     <label class="">Image</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card mb-2">
+                                                <div class="card-body text-center">
+                                                    @if ($category->image)
+                                                    <img src="{{asset($category->image)}}" style="object-fit:contain;width: 100%;height: 100%;" alt="">
+                                                    @else
+                                                    <span class="text-center w-100">
+                                                        <i class="icon icon-8xl text-light cil-image"></i>
+                                                    </span>
+                                                    @endif
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
                                     <input type="file" name="image" class="form-control" id="">
                                     @error('image')
                                         <small class="text-danger">{{ $message }}</small>
@@ -100,7 +117,7 @@
                             </div>
     
                             <div class="  d-flex justify-content-center">
-                                <button class="btn btn-success">Add</button>
+                                <button class="btn btn-success">Save Changes</button>
                             </div>
                         </form>
                     </div>

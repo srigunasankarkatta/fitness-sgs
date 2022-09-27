@@ -66,7 +66,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label class="">Slug</label>
-                                            <input type="text" name="slug" class="form-control" id="">
+                                            <input type="text" name="slug" class="form-control slugify" id="">
                                             @error('slug')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror

@@ -23,7 +23,6 @@ class Expert extends Model
         'meta_title',
         'meta_keyword',
         'meta_description'];
-
         
     public function category(){
         return $this->belongsTo(ExpertCategory::class,'category_id', 'id');

@@ -8,9 +8,11 @@ use App\Http\Controllers\Admin\ExpertController;
 use App\Http\Controllers\Admin\FitnessCenterCategoryController;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogPostController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Frontend\FitnessCenterConroller;
 
-
-
+use App\Http\Controllers\CkeditorController;
+use App\Http\Controllers\FrontendConroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,15 +25,26 @@ use App\Http\Controllers\Admin\BlogPostController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+// blog routes
+Route::get('blog', [FrontendConroller::class, 'index'])->name('home.blog');
+
+// frontend routes
+Route::get('/', [HomeController::class, 'home'])->name('home.home');
+
+Route::controller(HomeController::class)->group(function () {
+    Route::get('{slug}', 'fitnessCenter')->name('admin.expert_category');
+});
+
+// admin routes
+Route::get('admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
@@ -40,8 +53,10 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('expert-category', 'index')->name('admin.expert_category');
         Route::get('expert-category/create', 'create')->name('admin.expert_category.create');
         Route::post('expert-category', 'store')->name('admin.expert_category.store');
-        Route::post('expert-category/{category}/edit', 'edit')->name('admin.expert_category.edit');
-        Route::post('expert-category/{category}', 'update')->name('admin.expert_category.update');
+        Route::get('expert-category/{category}/edit', 'edit')->name('admin.expert_category.edit');
+        Route::put('expert-category/{category}', 'update')->name('admin.expert_category.update');
+        Route::get('expert-category/{id}/destroy', 'destroy')->name('admin.expert_category.destroy');
+
     });
 
     // expert routes
@@ -62,12 +77,12 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     
     // fitness center category routes
     Route::controller(FitnessCenterCategoryController::class)->group(function () {
-
         Route::get('fitness-center-category', 'index')->name('admin.fitness_center_category.index');
         Route::get('fitness-center-category/create', 'create')->name('admin.fitness_center_category.create');
         Route::post('fitness-center-category', 'store')->name('admin.fitness_center_category.store');
         Route::get('fitness-center-category/{id}/edit', 'edit')->name('admin.fitness_center_category.edit');
         Route::put('fitness-center-category/{id}', 'update')->name('admin.fitness_center_category.update');
+        Route::get('fitness-center-category/{id}/destroy', 'destroy')->name('admin.fitness-center-category.destroy');
     });
 
 
@@ -92,6 +107,8 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::post('blog-category', 'store')->name('admin.blog_category.store');
         Route::get('blog-category/{id}/edit', 'edit')->name('admin.blog_category.edit');
         Route::put('blog-category/{id}', 'update')->name('admin.blog_category.update');
+        Route::get('blog-category/{id}/destroy', 'destroy')->name('admin.blog-category.destroy');
+
     });
 
     // blog post routes
@@ -99,9 +116,12 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('blog-post', 'index')->name('admin.blog-post');
         Route::get('blog-post/create', 'create')->name('admin.blog-post.create');
         Route::post('blog-post', 'store')->name('admin.blog-post.store');
-        Route::get('blog-post/{id}/edit', 'edit')->name('admin.blog-post.edit');
-        Route::put('blog-post/{id}', 'update')->name('admin.blog-post.update');
-        Route::get('blog-post/{id}/destroy', 'destroy')->name('admin.blog-post.destroy');
+        Route::get('blog-post/{post_id}/edit', 'edit')->name('admin.blog-post.edit');
+        Route::put('blog-post/{post_id}', 'update')->name('admin.blog-post.update');
+        Route::get('blog-post/{post_id}/destroy', 'destroy')->name('admin.blog-post.destroy');
     });
+
+    Route::get('/ckeditor', [CkeditorController::class, 'index']);
+    Route::get('/ckeditor/upload', [CkeditorController::class, 'upload'])->name('ckeditor.upload');
 
 });

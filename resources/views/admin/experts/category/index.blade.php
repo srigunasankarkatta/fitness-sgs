@@ -15,9 +15,9 @@
               
                 <div class="card mb-5">
                     <div class="card-header d-flex justify-content-between">
-                        <h4>Fitmi Experts</h4>
-                        <a class="btn btn-success text-white" href="{{ url('admin/expert/create') }}">
-                            Add New Expert</a>
+                        <h4>Fitmi Expert Categories</h4>
+                        <a class="btn btn-success text-white" href="{{ url('admin/expert-category/create') }}">
+                            Add New Expert Category</a>
                     </div>
                     <div class="card-body">
                         <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
@@ -37,10 +37,10 @@
                                         <td>{{ $category->updated_at }}</td>
                                         <td>
                                             <div class=" d-flex ">
-                                                <a class="btn btn-outline-success p-1 " href="{{ url('admin/expert/'.$category->id.'/edit') }}">
+                                                <a class="btn btn-outline-success p-1 " href="{{ url('admin/expert-category/'.$category->id.'/edit') }}">
                                                     <i class="icon icon-2xl mb-2 cil-pen"></i>
                                                 </a>
-                                                <a class=" btn btn-outline-danger p-1" href="{{ url('admin/expert/'.$category->id.'/destroy') }}">
+                                                <a class=" btn btn-outline-danger p-1" href="{{ url('admin/expert-category/'.$category->id.'/destroy') }}">
                                                     <i class="icon icon-2xl mb-2 cil-trash"></i>
                                                 </a>
                                             </div>

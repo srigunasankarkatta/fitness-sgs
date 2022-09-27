@@ -19,7 +19,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="">Slug</label>
-                                <input type="text" name="slug" class="form-control" id="">
+                                <input type="text" name="slug" class="form-control slugify" id="">
                                 @error('slug')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -38,16 +38,21 @@
 
                         <div class="form-group row mb-3">
                             <div class="col-md-6">
-                                <label class="">Image</label>
-                                <input type="file" name="image" class="form-control" id="">
-                                @error('image')
+                                <label class="">Category Icon</label>
+                                <input type="text" name="category_icon" class="form-control " id="">
+                                @error('category_icon')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+                           
                             <div class="col-md-6">
-                                <div class="col-md-12"></div>
-                                <label class="">Status</label>
-                                <input type="radio" name="status" id="">
+                              
+                                  <label for=""></label>
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="mySwitch" name="status" checked>
+                                    <label class="form-check-label" for="mySwitch">Status</label>
+                                  </div>
+                             
                                 @error('status')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror

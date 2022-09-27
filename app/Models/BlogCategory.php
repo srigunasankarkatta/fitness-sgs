@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\BlogPost;
 
 class BlogCategory extends Model
 {
@@ -28,6 +29,10 @@ class BlogCategory extends Model
 
         return $this->hasMany('App\Models\BlogCategory', 'parent_id');
 
+    }
+
+    public function posts(){
+        return $this->hasMany(BlogPost::class, 'category_id', 'id');
     }
    
     // public function experts(){

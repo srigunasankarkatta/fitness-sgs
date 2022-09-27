@@ -29,6 +29,7 @@ class BlogCategoryFormRequest extends FormRequest
             ],	
             'slug'=>[
                 'required',
+                'unique:blog_categories,slug'
             ],	
             'description'=>[
                 'required',

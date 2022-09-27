@@ -23,8 +23,11 @@
                         <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>sl.no</th>
                                     <th>name</th>
-                                    <th>Category</th>
+                                    <th>slug</th>
+                                    <th>icon</th>
+
                                     <th>Date</th>
                                     <th>Action</th>
                                 </tr>
@@ -32,8 +35,10 @@
                             <tbody>
                                 @forelse ($categories as $category)
                                     <tr>
+                                        <td>{{$loop->iteration}}</td>
                                         <td>{{ $category->name }}</td>
-                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $category->slug }}</td>
+                                        <td>{{ $category->image }}</td>
                                         <td>{{ $category->updated_at }}</td>
                                         <td>
                                             <div class=" d-flex ">
