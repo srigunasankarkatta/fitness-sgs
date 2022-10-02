@@ -1,0 +1,57 @@
+https://stackoverflow.com/questions/71817159/how-do-i-outtput-azure-cognitive-services-text-to-speech-tts-to-mp3-file-keep
+https://stackoverflow.com/questions/38952650/using-php-curl-to-query-azure-cognitive-services-web-search-api-v5
+
+*******************************
+The Endpoint of Cognitive Services Search API v5 is in https portal which requires to verify the SSL certificate.
+
+If you use the code $error= curl_error($ch);, output the variable $error, you will get the error message "SSL certificate problem: unable to get local issuer certificate".
+
+The fast fix solution is to bypass the SSL certificate. Please try to add the sentence in your code snippet.
+
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+**********************************
+
+https://stackoverflow.com/questions/71542360/azure-get-tts-file-with-curl-cognitive-speech
+
+***********************************$token=getToken();
+$cont="<speak version='1.0' xml:lang='en-US'><voice xml:lang='en-US' xml:gender='Male'
+    name='en-US-ChristopherNeural'>
+        Microsoft Speech Service Text-to-Speech API
+</voice></speak>";
+
+$ch = curl_init();
+
+curl_setopt($ch, CURLOPT_URL, 'https://westeurope.api.cognitive.microsoft.com/cognitiveservices/v1');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, ($cont));
+
+$headers = array();
+#$headers[] = 'Ocp-Apim-Subscription-Key: xxxxxxxxxxxx';
+
+$headers[] = 'X-Microsoft-OutputFormat: raw-24khz-16bit-mono-pcm';
+$headers[] = 'Content-Type: application/ssml+xml';
+#$headers[] = 'Host: westus.tts.speech.microsoft.com';
+$headers[] = 'Content-Length: '.strlen($cont);
+$headers[] = 'Authorization: Bearer '.$token;//Token okay
+
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+ $result = curl_exec($ch);
+ print_r($result); //{"code":"404","message": "Resource not found"} 
+#############################
+fix
+curl_setopt($ch, CURLOPT_HEADER, 1);
+$headers[] = 'User-Agent: myApp/1.0.0';
+#############################
+
+***********************************
+
+https://stackoverflow.com/questions/45601264/how-do-i-playback-the-audio-stream-returned-from-bing-text-to-speech-api
+
+Using file_put_contents takes the output from the API and streams the content to a file
+file_put_contents($speechfilenamemp,$result);
+
+**************************************
+https://www.youtube.com/watch?v=nlh_CM2-ljM
+https://www.youtube.com/watch?v=jjJyY8b6pxI
